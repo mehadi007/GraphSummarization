@@ -39,11 +39,11 @@ $ make
     - summA: Droppoing some edges while maintaining the error bound
  
  - Options:
-    - --prefix <prefix>
-    - --epsilon <epsilon> 
-    - --dataset <dataset>
-    - --result_dir <directory to place results>
-    - --iteration < Number of Iteration Count T>
+    - --prefix < prefix >
+    - --epsilon < epsilon > 
+    - --dataset < dataset >
+    - --result_dir < directory to place results >
+    - --iteration < Number of Iteration Count T >
     
 
     
