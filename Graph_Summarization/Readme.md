@@ -35,8 +35,8 @@ $ make
 ## Parameters
 
 - Action:(For future extension) Currently use "summ" only
-        -   summ:  build exact supernodes S, superEdges P and Corrections C
-        -   summA: Droppoing some edges while maintaining the error bound
+    - summ:  build exact supernodes S, superEdges P and Corrections C
+    - summA: Droppoing some edges while maintaining the error bound
  
  - Options:
     --prefix <prefix>
