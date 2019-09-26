@@ -19,34 +19,16 @@
 #include <list>
 
 #include "utility.hpp"
-
+#include "graph.hpp"
 
 using namespace boost;
 using namespace std;
 using namespace boost::property_tree;
 
-//-----------Macros-------------//
-#pragma mark - Macros
-#ifdef WIN32
-#define DirectorySeparator "\\"
-#else
-#define DirectorySeparator "/"
-#endif
-
-#ifdef WIN32
-const string parent_folder = "../../";
-#else
-const string parent_folder = string("./") + DirectorySeparator;
-#endif
-//-----------------------//
-
-
-//static void initGraphparams(Config &config, const Graph &graph);
-
 
 #pragma mark - Classes
 //Forward Declaration
-class Graph;
+
 class Config;
 class Result;
 
@@ -55,6 +37,11 @@ class Result;
 extern Config config;
 extern Result result;
 
+
+
+
+
+//Config Class will hold all the algo related configurations.
 class Config {
 public:
     
@@ -95,36 +82,9 @@ public:
     }
 };
 
-class Graph {
-private:
-    long n;  // Number of Nodes  (0 to n-1)
-    long long m;   //Number of Edges
-    void getNM();
-    void init_graph();
-public:
-    long getN();
-    long long getM();
-    void setN(long);
-    void setM(long long);
-    vector<vector<int>> g; //Adjacency List representation
-    string graph_data_folder;
-    static bool cmp(const pair<int, double> &t1, const pair<int, double> &t2) {
-        return t1.second > t2.second;
-    }
-    
-    Graph(string data_folder) {
-        cout<<"Graph Constructor"<<endl;
-        this->graph_data_folder = data_folder;
-        init_graph();
-        cout<<"N = "<<n<< "   M = "<< m <<endl;
-    }
-};
-
-
-
 class Result{
 private:
- 
+    
 public:
     set<set<long>>S; //superNodes
     set< pair< set<long>, set<long> > >P; //SuperEdges
@@ -154,7 +114,6 @@ public:
         data.put("Size of C-", C_minus.size());
         
         //TODO://data.put("Timer Information will update Later");
-        
         return data;
     }
 };
@@ -181,7 +140,7 @@ namespace SaveContainer {
         return config.executed_result_directory + filename;
         //return the fileName to save the result.
     }
-    static void saveResultAsjson(Config &config, Result &result, vector<string> args) {       
+    static void saveResultAsjson(Config &config, Result &result, vector<string> args) {
         ofstream fout(get_time_path() + ".json");
         string command_line = "";
         for (int i = 1; i < args.size(); i++) {

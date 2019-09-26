@@ -16,8 +16,8 @@ find_package(Boost REQUIRED  unit_test_framework filesystem system date_time pro
 #message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
 
 
-set(HEADER utility.hpp config.hpp algo.hpp)
-set(LIB utility.cpp config.cpp algo.cpp)
+set(HEADER utility.hpp config.hpp algo.hpp graph.hpp)
+set(LIB utility.cpp config.cpp algo.cpp graph.cpp)
 
 # The following folder will be included
 include_directories("${PROJECT_SOURCE_DIR}")

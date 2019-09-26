@@ -63,6 +63,24 @@ using namespace std;
 //--------------------------//
 
 
+//-----------Macros-------------//
+#pragma mark - Macros
+#ifdef WIN32
+#define DirectorySeparator "\\"
+#else
+#define DirectorySeparator "/"
+#endif
+
+#ifdef WIN32
+const string parent_folder = "../../";
+#else
+const string parent_folder = string("./") + DirectorySeparator;
+#endif
+//-----------------------//
+
+
+
+
 #pragma mark -  Globally accessible functions
 bool file_exists_at_path(string);
 

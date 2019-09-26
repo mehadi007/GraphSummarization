@@ -30,6 +30,7 @@
 #include "utility.hpp"
 #include "config.hpp"
 #include "algo.hpp"
+#include "graph.hpp"
 
 using namespace std;
 
@@ -111,7 +112,7 @@ int main(int argc, char* argv[]) {
         
         auto args = combine_args(argc, argv);
         SaveContainer::saveResultAsjson(config, result, args);
-                
+        
         program_stop();
     }
     return 0;

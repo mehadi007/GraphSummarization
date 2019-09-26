@@ -60,6 +60,7 @@ bool superNode_Limit_Checking(const Graph &graph, set<long> &SuperA, long limit)
 void drop_Changing_Limit_SuperNode(vector<double>&C_V, set<long> &SuperA, long limit);
 //============================================================
 
+
 //Algorithm-1
 #pragma mark - Algorithms
 void OverviewSummarization(Graph &graph){
@@ -241,7 +242,7 @@ void dropping_Step_SWeG(Graph &graph){
         erase_successful = false;
         if(C_V[u] >=1 && C_V[v] >=1){
             C_V[u] -= 1;
-            C_V[v] -= 1;            
+            C_V[v] -= 1;
             if(!result.C_minus.empty()){
                 it = result.C_minus.erase(it); // C++ 11
                 erase_successful = true;
@@ -427,7 +428,7 @@ void HashMap_Edges_of_SuperA(const Graph &graph,const set<long>&A, unordered_map
     //Insert each edge of SuperNode A into the HashTable, insertion cost O(1)
     for (it=A.begin(); it !=A.end(); ++it) {
         for (int j=0; j<graph.g[*it].size(); j++) {
-            MP[make_pair(MIN(*it, graph.g[*it][j]), MAX(*it, graph.g[*it][j]))] = true;
+            MP[make_pair(MIN(*it, graph.g[*it][j].getNodeID()), MAX(*it, graph.g[*it][j].getNodeID()))] = true;
         }
     }
 }
@@ -524,12 +525,12 @@ double SuperJaccard(set<long>&A, set<long>&B, const Graph& graph){
         for (int j=0; j<graph.g[*it].size(); j++) {
             //INFO("AB_v: ", graph.g[*it][j]);
             //If node = graph.g[*it][j] belongs to set A, it_lookup will not be A.end.
-            it_lookup = A.find(graph.g[*it][j]);
+            it_lookup = A.find(graph.g[*it][j].getNodeID());
             if (it_lookup != A.end()) {
                 w_A++;
             }
             //Same condition
-            it_lookup = B.find(graph.g[*it][j]);
+            it_lookup = B.find(graph.g[*it][j].getNodeID());
             if (it_lookup != B.end()) {
                 w_B++;
             }
@@ -551,7 +552,7 @@ set<long> get_Neighbor_Set_of_SuperNode(set<long>&A, const Graph& graph){
     for (it = A.begin(); it != A.end(); ++it) {
         //For each node in SuperA get the neighbor
         for (int j=0; j<graph.g[*it].size(); j++) {
-            res.insert(graph.g[*it][j]);
+            res.insert(graph.g[*it][j].getNodeID());
         }
     }
     return res;
@@ -582,8 +583,8 @@ bool compareF_Score(pair< set<long>, long> i1, pair< set<long>, long> i2)
 long Shingle_of_NodeV(const Graph& graph, long v, const vector<long>&H){
     long fv = H[v]; // cover u==v checking case
     for (long u = 0; u< graph.g[v].size(); u++) {
-        if(H[graph.g[v][u]] < fv){
-            fv = H[graph.g[v][u]]; // get the min
+        if(H[graph.g[v][u].getNodeID()] < fv){
+            fv = H[graph.g[v][u].getNodeID()]; // get the min
         }
     }
     return fv;
