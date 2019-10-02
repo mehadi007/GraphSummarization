@@ -17,6 +17,15 @@
 class vertex;
 class SuperNode;
 class Graph;
+
+//typeDefs
+typedef vector<vector<vertex*>> GraphType;
+typedef vector<vector<vertex*>>::iterator GraphType_It;
+typedef vector<vertex*> NodeVec;
+typedef vector<vertex*>::iterator NodeVec_It;
+typedef set <vertex*> Set_Nodes;
+typedef set <vertex*>::iterator Set_Nodes_It;
+
 //-----------------Edge Struct-----------------//
 //Declare the Weighted Edge
 struct wEdge
@@ -45,18 +54,18 @@ struct Edge
 //-----------------Custom Vertex---------------//
 class vertex{
 private:
-    long nodeId;
+    long nodeID;
     //string nodeTitle;
     //Add Other Node Attributes
 public:
     vertex(long id=-1){
-        nodeId = id;
+        nodeID = id;
     }
     long getNodeID() const{
-        return nodeId;
+        return nodeID;
     }
     void setNodeID(long temp){
-        nodeId = temp;
+        nodeID = temp;
     }
 };
 
@@ -64,9 +73,10 @@ public:
 class SuperNode{
    
 public:
-    int id; //SuperNode ID
-    set<vertex>Node; //Set of Vertex is A SuperNode
+    int S_id; //SuperNode ID
+    Set_Nodes S_Node; //Set of Vertex pointer is A SuperNode
 };
+
 //set<SuperNode*>S; //superNodes
 //S.insert = New
 //set<pair< SuperNode*, SuperNode* > > superEdge;
@@ -81,12 +91,14 @@ private:
     long long m;   //Number of Edges
     void getNM();
     void init_graph();
+    void initialize_Node_Vector();
 public:
     long getN();
     long long getM();
     void setN(long);
     void setM(long long);
-    vector<vector<vertex>> g; //Adjacency List representation
+    NodeVec NodeVector; // Store pointer to the Vertex | for all in G
+    GraphType g; //Adjacency List representation
     string graph_data_folder;
     static bool cmp(const pair<int, double> &t1, const pair<int, double> &t2) {
         return t1.second > t2.second;
@@ -96,6 +108,18 @@ public:
         this->graph_data_folder = data_folder;
         init_graph();
         cout<<"N = "<<n<< "   M = "<< m <<endl;
+    }
+    ~Graph(){
+        cout<<"Graph Destructor"<<endl;
+        
+        for (int i=0; i<NodeVector.size(); i++) {
+            delete NodeVector[i]; //delete the actual vertex object
+        }
+        for (long i=0;i<n;i++){
+            for(long j=0;j<g[i].size();j++){
+                delete g[i][j];
+            }
+        }
     }
     
 };

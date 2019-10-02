@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
         config.graphDataLocation = config.getGraphDataFolder();
         Graph graph(config.graphDataLocation);
         
-        OverviewSummarization(graph); //Calling algo 1
+       // OverviewSummarization(graph); //Calling algo 1
         
         auto args = combine_args(argc, argv);
         SaveContainer::saveResultAsjson(config, result, args);

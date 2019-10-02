@@ -47,7 +47,8 @@ void Graph::getNM() {
 //Initialize adjacency List
 void Graph::init_graph() {
     getNM(); //get n & m
-    g = vector<vector<vertex>>(n, vector<vertex>());
+    initialize_Node_Vector(); // initialize Node Vection with just id upto 0 to n-1
+    g = GraphType(n, vector<vertex*>());
     string graphFile = graph_data_folder + DirectorySeparator + "graph.txt";
     if(file_exists_at_path(graphFile)){
         FILE *Fin = fopen(graphFile.c_str(), "r");
@@ -56,11 +57,21 @@ void Graph::init_graph() {
             assert(t1 < n);
             assert(t2 < n);
             if(t1 != t2){
-                vertex obj_t1(t1);
-                vertex obj_t2(t2);
-                g[t1].push_back(obj_t2);
-                g[t2].push_back(obj_t1); // undirected graph
+                NodeVector[t1]->setNodeID(t1); // t1 is the node id, NodeVector[t1] is the pointer to that node
+                NodeVector[t2]->setNodeID(t2);
+                //For other Node Attributes can set here;
+                
+                g[t1].push_back(NodeVector[t1]);
+                g[t2].push_back(NodeVector[t2]); // undirected graph
+                
             }
         }
+    }
+}
+void Graph::initialize_Node_Vector(){
+    //Set Node Vector With vertex ID
+    NodeVector = vector<vertex*>(n);
+    for (long i=0; i<n; i++) {
+        NodeVector[i] = new vertex(i);
     }
 }

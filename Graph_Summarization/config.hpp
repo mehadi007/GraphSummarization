@@ -32,13 +32,23 @@ using namespace boost::property_tree;
 class Config;
 class Result;
 
-
 //Extern Configuration Class object to use multiple places
 extern Config config;
 extern Result result;
 
 
+//TypeDef
+typedef set<SuperNode*>                         SuperNodeSet;
+typedef set<SuperNode*>::iterator               SuperNodeSet_It;
 
+typedef set<pair< SuperNode*, SuperNode* >>            SuperEdgeSet;
+typedef set<pair< SuperNode*, SuperNode* >>::iterator  SuperEdgeSet_It;
+
+typedef set< pair<vertex*, vertex*>>            C_PlusPairSet;
+typedef set< pair<vertex*, vertex*>>::iterator  C_PlusPairSet_It;
+
+typedef set< pair<vertex*, vertex*>>            C_minusPairSet;
+typedef set< pair<vertex*, vertex*>>::iterator  C_minusPairSet_It;
 
 
 //Config Class will hold all the algo related configurations.
@@ -86,19 +96,32 @@ class Result{
 private:
     
 public:
-    set<set<long>>S; //superNodes
-    set< pair< set<long>, set<long> > >P; //SuperEdges
-    set< pair<long, long>> C_plus; //correction+
-    set< pair<long, long>> C_minus; //correction+
-    vector< pair< set<long>, long> > S_Group;//pair<superNode, F>
+//    set<set<long>>S; //superNodes
     
-    void printSuperNode_A(const set<long>&); //Print Super Node A
-    void printSuperNodes(); //All Super Nodes S
-    void printSuperEdges();
-    void printCorrections();
-    void printResult_Data();
+//    set< pair< set<long>, set<long> > >P; //SuperEdges
+//    set< pair<long, long>> C_plus; //correction+
+//    set< pair<long, long>> C_minus; //correction+
+//    vector< pair< set<long>, long> > S_Group;//pair<superNode, F>
+//
+    SuperNodeSet S; //SuperNodes
+    SuperEdgeSet P; //SuperEdges
+    C_PlusPairSet C_plus;  //correction+
+    C_minusPairSet C_minus;  //correction-
+    vector< pair< SuperNode*, long> > S_Group;//pair<superNode, F>
+    
+    void print_SuperNode(const SuperNodeSet_It &it); //Print one Super Node pointed by it
+    void print_All_SuperNodes();                  //All Super Nodes S
+    void print_All_SuperEdges();
+    void print_Corrections();
+    void print_Result_Data();
     
     ~Result(){
+        //deallocate resources
+        for(SuperNodeSet_It it = S.begin(); it !=S.end(); ++it)
+        {
+            delete *(it); // delete actual SuperNode object
+        }
+        
         S.clear();
         P.clear();
         S_Group.clear();
