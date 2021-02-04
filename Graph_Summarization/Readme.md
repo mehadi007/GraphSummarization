@@ -1,32 +1,31 @@
 
-XCode Configuration:
-# Add Boost:
-    -With the help of brew install boost
-        
-        
-    a.  HEADER_SEARCH_PATHS = /usr/local/include/  /usr/local/Cellar/boost/1.70.0/include
-    b.  LIBRARY_SEARCH_PATHS = /usr/local/lib/  /usr/local/Cellar/boost/1.70.0/lib/
-    c.  OTHER_LDFLAGS = -lboost_system -lboost_filesystem
-    d.  Drag required(filesystem, system, serialization etc) to the project, that will automatically link the lib to build phase
-    
-# Add SNAP Lib(optional):
-    a. Place this whole project inside SNAP directory
-    b. Add snap-env, snap-core, glib-core reference to xcode
-    c. build phase-> compile source -> add Snap.cpp
+XCode Configuration (optional):
+===============================
+
+    # Add Boost:
+        * First install boost with brew.
+
+        xcode build settings:
+            a.  HEADER_SEARCH_PATHS = /usr/local/include/  /usr/local/Cellar/boost/1.70.0/include
+            b.  LIBRARY_SEARCH_PATHS = /usr/local/lib/  /usr/local/Cellar/boost/1.70.0/lib/
+            c.  OTHER_LDFLAGS = -lboost_system -lboost_filesystem
+            d.  Drag required(filesystem, system, serialization etc) to the project, that will automatically link the lib to build phase
 
 
-//----------------------//
 
-## Tested Environment
+Tested Environment
+==================
 - C++ 11
 - GCC 4.8
 - Boost
 - cmake
 
 
-## Compile:
+How to Compile and Run:
+====================
 - create build directory.
 - Use below commands from inside of the build directory:
+
 ```sh
 $ cmake ../
 $ make
