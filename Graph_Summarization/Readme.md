@@ -1,7 +1,8 @@
 About this Project:
 ==================
 This is my own implementatin of WWW'2019 paper titled  "SWeG: Lossless and Lossy Summarization of Web-Scale Graphs".
-I did this as a part of my Advanced Database Course project.
+Use at your own risk. I am not an author of this paper.
+
 
 XCode Configuration (optional):
 ===============================
